@@ -1,6 +1,6 @@
 from persistance import BPersistent
 from figman import FigMan
-from serializer import BSerialized
+from constructor.constuctors import TkConstructor
 class BConstructed():
     """
     BConstructed takes custom json serialized tkinter objects and reconstructs them during runtime.
