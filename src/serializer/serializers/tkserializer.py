@@ -14,7 +14,7 @@ class TkSerializer:
         
     def __call__(self, manager, window):
 
-        configuration = manager(window.title())
+        configuration = manager("window")
         self._get_configuration(window, configuration)# Populate the configuration with the provided window and all it's children.
         return configuration
     
@@ -65,6 +65,8 @@ class TkSerializer:
 
         for key, value in self._get_window_config(window):# Calls the generator function and creates a figman.Setting instance for each attribute.
             configuration["config"][key] = value
+            for key, value in self._get_widget_config(window):
+                configuration["config"]["configure"][key] = value
 
     def _get_window_children(self, parent):
         """
@@ -92,8 +94,10 @@ class TkSerializer:
 
         for key in widget.keys():
             value = widget.cget(key)
-            yield key, value
-
+            if value != "" and value != 0:
+                yield key, value
+            else:
+                continue
     def _get_widget_place(self, widget):
         """
         Populates the configuration entry for a widget's place geometry options.
@@ -104,7 +108,10 @@ class TkSerializer:
         """
 
         for key, value in self._place_values(widget):
-            yield key, value
+            if value != "" and value != 0:
+                yield key, value
+            else:
+                continue
 
     def _place_values(self, widget):
         """
