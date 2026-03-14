@@ -1,4 +1,5 @@
-from figman import FigMan
+from figman import FigMan, MasterGroup
+from persistance.persistance import BPersistent
 
 class BSerialized:
     """
@@ -14,6 +15,7 @@ class BSerialized:
         """Initializes the serializer and creates a FigMan manager instance."""
 
         self.manager = FigMan() #Initialize the FigMan
+        self.persistance = BPersistent()
         self.convert_map ={
         "x": float,
         "relx": float,
@@ -40,10 +42,16 @@ class BSerialized:
         self._get_configuration(window, configuration)# Populate the configuration with the provided window and all it's children.
         return configuration
 
-    def save_configuration(self, configuration, file_path):
-        """Leverage FigMan to save the configuraiton to file."""
+    def save_configuration(self, file_path, configuration):
+        """
+        Saves the FigMan object to file
+        
+        Params:
+            configuration (MasterGroup): The MasterGroup to save to file.
+            file_path (str): The file path to be used.
+        """
 
-        self.manager.save(configuration, file_path)# Saves the configuration in a json or yaml format.
+        self.persistance(file_path, configuration)
 
     def _get_configuration(self, window, configuration):
         """
