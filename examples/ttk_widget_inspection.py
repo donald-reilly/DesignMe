@@ -3,7 +3,9 @@ from tkinter import ttk
 import json
 from pathlib import Path
 
+from figman import FigMan
 from serializer import BSerialized
+from constructor import BConstructed
 root = tk.Tk()
 root.title("Introspection Test Window")
 root.geometry("800x500")
@@ -143,7 +145,12 @@ for item in ["Item 1", "Item 2", "Item 3", "Item 4"]:
 listbox.place(relx=0.67, rely=0.65, relwidth=0.28, relheight=0.25)
 
 new_serializer = BSerialized()
+new_constructor = BConstructed()
 
 new_configuration = new_serializer(root)
 
 new_serializer.save_configuration("examples/tkinter_window_test.json", new_configuration)
+
+config_dict = new_constructor("examples/tkinter_window_test.json")
+
+new_serializer.save_configuration("examples/test_constructor.json", config_dict)
