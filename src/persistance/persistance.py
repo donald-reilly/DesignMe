@@ -15,7 +15,7 @@ class BPersistent():
         if master_group:
             self._to_file(master_group.serialized_state, file_path)
         else:
-            self._from_file(file_path)
+            return self._from_file(file_path)
         
     def _to_file(self, configuration_dict, file_path):
         """
@@ -47,7 +47,7 @@ class BPersistent():
                 "json": json.load(config_dict),
                 "yaml": yaml.load(config_dict, Loader=yaml.FullLoader)
             }
-            return loaders[self.file_format(file_path)]
+            return loaders[self._get_file_format(file_path)]
 
     def _get_file_format(self, file_path: str) -> str:
         """
