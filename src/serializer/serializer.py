@@ -18,20 +18,10 @@ class BSerialized:
 
         self.manager = FigMan() #Initialize the FigMan
         self.persistance = BPersistent()
-        self.convert_map ={
-        "x": float,
-        "relx": float,
-        "y": float,
-        "rely": float,
-        "width": float,
-        "relwidth": float,
-        "height": float,
-        "relheight": float
-        }# A mapping to all current tkinter variables that need to be converted and their needed types.
-
         self.serializer_registry = {
             tk.Tk: TkSerializer
         }
+
     def __call__(self, object_to_serialize):
         """
         Serializes the given Tkinter window.
@@ -42,6 +32,7 @@ class BSerialized:
         Returns:
             MasterGroup: An instance of MasterGroup populated with the attributes to rebuild a tkinter window and it's children.
         """
+        
         serializer = self.serializer_registry[type(object_to_serialize)]()
         return serializer(self.manager, object_to_serialize)
 
