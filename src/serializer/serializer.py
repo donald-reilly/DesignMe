@@ -1,5 +1,5 @@
 from figman import FigMan, MasterGroup
-from persistance.persistance import BPersistent
+from persistance import BPersistent
 
 class BSerialized:
     """
