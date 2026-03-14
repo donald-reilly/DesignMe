@@ -1,5 +1,6 @@
 class TkSerializer:
     def __init__(self):
+
         self.convert_map ={
             "x": float,
             "relx": float,
@@ -10,10 +11,13 @@ class TkSerializer:
             "height": float,
             "relheight": float
         }# A mapping to all current tkinter variables that need to be converted and their needed types.
+        
     def __call__(self, manager, window):
+
         configuration = manager(window.title())
         self._get_configuration(window, configuration)# Populate the configuration with the provided window and all it's children.
         return configuration
+    
     def _get_configuration(self, window, configuration):
         """
         Populates the configuration dictionary with window-level and widget-level data.
