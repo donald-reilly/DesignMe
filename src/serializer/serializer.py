@@ -13,7 +13,7 @@ class BSerialized:
     def __init__(self):
         """Initializes the serializer and creates a FigMan manager instance."""
 
-        self.manager = FigMan()
+        self.manager = FigMan() #Initialize the FigMan
         self.convert_map ={
         "x": float,
         "relx": float,
@@ -23,7 +23,7 @@ class BSerialized:
         "relwidth": float,
         "height": float,
         "relheight": float
-    }
+    }# A mapping to all current tkinter variables that need to be converted and their needed types.
 
     def __call__(self, window):
         """
@@ -33,17 +33,17 @@ class BSerialized:
             window (tkinter.Tk | tkinter.Toplevel): The window to serialize.
 
         Returns:
-            dict: A configuration dictionary populated with window and widget data.
+            MasterGroup: An instance of MasterGroup populated with the attributes to rebuild a tkinter window and it's children.
         """
 
-        configuration = self.manager(window.title())
-        self._get_configuration(window, configuration)
+        configuration = self.manager(window.title())# Create a new FigMan configuration
+        self._get_configuration(window, configuration)# Populate the configuration with the provided window and all it's children.
         return configuration
 
     def save_configuration(self, configuration, file_path):
         """Leverage FigMan to save the configuraiton to file."""
 
-        self.manager.save(configuration, file_path)
+        self.manager.save(configuration, file_path)# Saves the configuration in a json or yaml format.
 
     def _get_configuration(self, window, configuration):
         """
@@ -54,8 +54,8 @@ class BSerialized:
             configuration (dict): The configuration dictionary to populate.
         """
 
-        self._get_window_entry(window, configuration)
-        self._get_widget_entry(window, configuration)
+        self._get_window_entry(window, configuration)# populates the window attributes
+        self._get_widget_entry(window, configuration)# populates the widget attributes
 
     def _get_window_config(self, window):
         """
@@ -77,8 +77,8 @@ class BSerialized:
             "iconbitmap": window.iconbitmap,
             "state": window.state,
             "attributes": window.attributes,
-        }
-        for key, attr in window_attr.items():
+        }# A mapping to the window attributes.
+        for key, attr in window_attr.items():# Creates a generator function that yeilds the attributes of the window.
             yield key, attr()
 
     def _get_window_entry(self, window, configuration):
@@ -90,8 +90,8 @@ class BSerialized:
             configuration (dict): The configuration dictionary to update.
         """
 
-        for key, value in self._get_window_config(window):
-            configuration[key] = value
+        for key, value in self._get_window_config(window):# Calls the generator function and creates a figman.Setting instance for each attribute.
+            configuration["config"][key] = value
 
     def _get_window_children(self, parent):
         """
@@ -104,7 +104,7 @@ class BSerialized:
             tuple[str, tkinter.Widget]: The widget name and widget instance.
         """
 
-        for name, child in parent.children.items():
+        for name, child in parent.children.items():# Creates a generator function that yeilds the children of the provided window.
             yield name, child
 
     def _get_widget_config(self, widget):
@@ -151,11 +151,11 @@ class BSerialized:
             window (tkinter.Tk | tkinter.Toplevel): The window whose widgets are serialized.
             configuration (dict): The configuration dictionary to update.
         """
-        
+        children_config = configuration["children"]
         for name, widget in self._get_window_children(window):
-            configuration[name]["type"] = widget.winfo_class()
-            configuration[name]["parent"] = widget.winfo_parent()
+            children_config[name]["type"] = widget.winfo_class()
+            children_config[name]["parent"] = widget.winfo_parent()
             for key, value in self._get_widget_config(widget):
-                configuration[name]["config"][key] = value
+                children_config[name]["config"][key] = value
             for key, value in self._get_widget_place(widget):
-                configuration[name]["place"][key] = value
+                children_config[name]["place"][key] = value
