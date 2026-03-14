@@ -146,4 +146,4 @@ new_serializer = BSerialized()
 
 new_configuration = new_serializer(root)
 
-new_serializer.save_configuration(new_configuration, "examples/tkinter_window_test.json")
+new_serializer.save_configuration("examples/tkinter_window_test.json", new_configuration)
