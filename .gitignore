@@ -10,3 +10,5 @@ src/serializer/serializers/__pycache__/tkserializer.cpython-313.pyc
 src/persistance/__pycache__/__init__.cpython-313.pyc
 src/constructor/__pycache__/__init__.cpython-313.pyc
 src/constructor/__pycache__/constructor.cpython-313.pyc
+src/constructor/constuctors/__pycache__/__init__.cpython-313.pyc
+src/constructor/constuctors/__pycache__/tkconstuctor.cpython-313.pyc
