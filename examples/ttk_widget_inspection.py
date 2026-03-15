@@ -150,7 +150,3 @@ new_constructor = BConstructed()
 new_configuration = new_serializer(root)
 
 new_serializer.save_configuration("examples/tkinter_window_test.json", new_configuration)
-
-config_dict = new_constructor("examples/tkinter_window_test.json")
-
-new_serializer.save_configuration("examples/test_constructor.json", config_dict)

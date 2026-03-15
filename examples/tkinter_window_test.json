@@ -3,7 +3,6 @@
         "config": {
             "title": "Introspection Test Window",
             "configure": {
-                "class": "Tk",
                 "relief": "flat",
                 "background": "#222222",
                 "bg": "#222222",
@@ -307,7 +306,17 @@
                     "relheight": 0.25,
                     "anchor": "nw",
                     "bordermode": "inside"
-                }
+                },
+                "set": [
+                    "Item 1",
+                    "Item 2",
+                    "Item 3",
+                    "Item 4",
+                    "Item 1",
+                    "Item 2",
+                    "Item 3",
+                    "Item 4"
+                ]
             }
         }
     }
