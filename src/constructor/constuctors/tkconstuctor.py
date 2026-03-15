@@ -12,57 +12,58 @@ class TkConstructor:
             "widget": self._create_widget
         }
         self.widget_map = {
-            "frame": ttk.Frame,
-            "labelframe": ttk.LabelFrame,
-            "label": ttk.Label,
-            "button": ttk.Button,
-            "entry": ttk.Entry,
-            "checkbutton": ttk.Checkbutton,
-            "radiobutton": ttk.Radiobutton,
-            "combobox": ttk.Combobox,
-            "progressbar": ttk.Progressbar,
-            "scale": ttk.Scale,
-            "scrollbar": ttk.Scrollbar,
-            "separator": ttk.Separator,
-            "sizegrip": ttk.Sizegrip,
-            "treeview": ttk.Treeview,
-            "notebook": ttk.Notebook,
-            "panedwindow": ttk.PanedWindow,
-            "canvas":tk.Canvas,
-            "text": tk.Text,
-            "listbox":tk.Listbox,
-            "menu":tk.Menu,
-            "menubutton":tk.Menubutton,
-            "toplevel":tk.Toplevel,
-            "spinbox":tk.Spinbox
+            "TFrame": ttk.Frame,
+            "TLabelframe": ttk.LabelFrame,
+            "TLabel": ttk.Label,
+            "TButton": ttk.Button,
+            "TEntry": ttk.Entry,
+            "TCheckbutton": ttk.Checkbutton,
+            "TRadiobutton": ttk.Radiobutton,
+            "TCombobox": ttk.Combobox,
+            "TProgressbar": ttk.Progressbar,
+            "TScale": ttk.Scale,
+            "TScrollbar": ttk.Scrollbar,
+            "TSeparator": ttk.Separator,
+            "TSizegrip": ttk.Sizegrip,
+            "TTreeview": ttk.Treeview,
+            "TNotebook": ttk.Notebook,
+            "TPanedwindow": ttk.PanedWindow,
+            "Canvas":tk.Canvas,
+            "Text": tk.Text,
+            "Listbox":tk.Listbox,
+            "Menu":tk.Menu,
+            "Menubutton":tk.Menubutton,
+            "Toplevel":tk.Toplevel,
+            "Spinbox":tk.Spinbox
         }
     def __call__(self, configuration):
         return self._build_app(configuration)
     def _build_app(self, configuration):
         window_build, widget_build = self._extract_dictionaries(configuration)
-        self._create_window(window_build)
+        root = self._create_window(window_build)
+        self._create_widget(widget_build, root)
+        return root
     def _extract_dictionaries(self, configruation):
-        window_build = configruation["window"]["config"]
-        widget_build = configruation["window"]["children"]
+        window_build = configruation["config"]
+        widget_build = configruation["children"]
         return window_build, widget_build
     def _create_window(self, window_build):
         root = tk.Tk()
-        root.title(window_build["title"])
-
-        root.geometry(window_build["geometry"])
-
-        root.minsize(*window_build["minsize"])
-        root.maxsize(*window_build["maxsize"])
-
-        root.resizable(*window_build["resizable"])
-
-        root.configure(**window_build["config"]["configure"])
-
-        root.iconbitmap(window_build["iconbitmap"])
-
-        root.attributes(*window_build["attributes"])
-        
-
-        root.state(window_build["state"])   # maximize
-    def _create_widget(self):
-        pass
+        root.title(window_build["title"].value)
+        root.geometry(window_build["geometry"].value)
+        root.minsize(*window_build["minsize"].value)
+        root.maxsize(*window_build["maxsize"].value)
+        root.resizable(*window_build["resizable"].value)
+        root.configure(**window_build["configure"].kwargs)
+        root.iconbitmap(window_build["iconbitmap"].value)
+        root.attributes(*window_build["attributes"].value)
+        root.state(window_build["state"].value)   # maximize
+        return root
+    def _create_widget(self, widget_build, root):
+        for widget in widget_build:
+            try:
+                widget_call = self.widget_map[widget["type"].value]
+            except:
+                print("widget type not yet implemented")
+            new_widget = widget_call(root, **widget["config"].kwargs)
+            new_widget.place(**widget["place"].kwargs)
