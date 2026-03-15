@@ -7,11 +7,13 @@ class BConstructed():
     """
     def __init__(self):
         self.persistance = BPersistent()
+        self.constructor = TkConstructor()
         self.manager  = FigMan()
     
     def __call__(self, file_path):
-        return self._load_configuration(file_path)
-    
+        config = self._load_configuration(file_path)
+        build = self.constructor(config)
+        return build
     def _load_configuration(self, file_path):
         new_dict = self.persistance(file_path)
         return self._deserialize_all(new_dict)
