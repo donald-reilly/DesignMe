@@ -6,6 +6,7 @@ from pathlib import Path
 from figman import FigMan
 from serializer import BSerialized
 from constructor import BConstructed
+
 root = tk.Tk()
 root.title("Introspection Test Window")
 root.geometry("800x500")

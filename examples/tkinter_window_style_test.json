@@ -1,0 +1,359 @@
+{
+    "window": {
+        "config": {
+            "title": "TTK Widget Demo (No Frames)",
+            "configure": {
+                "relief": "flat",
+                "background": "#2b2b2b",
+                "bg": "#2b2b2b",
+                "highlightbackground": "#d9d9d9",
+                "highlightcolor": "#000000",
+                "takefocus": "0"
+            },
+            "geometry": "1x1+0+0",
+            "minsize": [
+                1,
+                1
+            ],
+            "maxsize": [
+                1905,
+                1050
+            ],
+            "resizable": [
+                1,
+                1
+            ],
+            "iconbitmap": "",
+            "state": "normal",
+            "attributes": [
+                "-alpha",
+                1.0,
+                "-topmost",
+                0,
+                "-zoomed",
+                0,
+                "-fullscreen",
+                0,
+                "-type",
+                ""
+            ]
+        },
+        "children": {
+            "!label": {
+                "type": "TLabel",
+                "parent": ".",
+                "config": {
+                    "font": "{Segoe UI} 14 bold",
+                    "anchor": "w",
+                    "justify": "left",
+                    "text": "TTK Styled Demo Window",
+                    "underline": -1,
+                    "state": "normal",
+                    "style": "Demo.TLabel"
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.03,
+                    "rely": 0.03,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                }
+            },
+            "!button": {
+                "type": "TButton",
+                "parent": ".",
+                "config": {
+                    "default": "normal",
+                    "takefocus": "ttk::takefocus",
+                    "text": "Click Me",
+                    "underline": -1,
+                    "state": "normal",
+                    "style": "Demo.TButton"
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.03,
+                    "rely": 0.12,
+                    "relwidth": 0.18,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                }
+            },
+            "!entry": {
+                "type": "TEntry",
+                "parent": ".",
+                "config": {
+                    "exportselection": 1,
+                    "font": "TkTextFont",
+                    "justify": "left",
+                    "state": "normal",
+                    "validate": "none",
+                    "width": 20,
+                    "takefocus": "ttk::takefocus",
+                    "cursor": "xterm"
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.25,
+                    "rely": 0.12,
+                    "relwidth": 0.25,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                }
+            },
+            "!combobox": {
+                "type": "TCombobox",
+                "parent": ".",
+                "config": {
+                    "height": "10",
+                    "values": [
+                        "Option A",
+                        "Option B",
+                        "Option C"
+                    ],
+                    "exportselection": 1,
+                    "font": "TkTextFont",
+                    "justify": "left",
+                    "state": "readonly",
+                    "validate": "none",
+                    "width": 20,
+                    "takefocus": "ttk::takefocus"
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.55,
+                    "rely": 0.12,
+                    "relwidth": 0.2,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                }
+            },
+            "!checkbutton": {
+                "type": "TCheckbutton",
+                "parent": ".",
+                "config": {
+                    "variable": "PY_VAR0",
+                    "onvalue": "1",
+                    "offvalue": "0",
+                    "takefocus": "ttk::takefocus",
+                    "text": "Enable Feature",
+                    "underline": -1,
+                    "state": "normal"
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.03,
+                    "rely": 0.22,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                }
+            },
+            "!radiobutton": {
+                "type": "TRadiobutton",
+                "parent": ".",
+                "config": {
+                    "variable": "PY_VAR1",
+                    "value": "A",
+                    "takefocus": "ttk::takefocus",
+                    "text": "Choice A",
+                    "underline": -1,
+                    "state": "normal"
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.03,
+                    "rely": 0.3,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                }
+            },
+            "!radiobutton2": {
+                "type": "TRadiobutton",
+                "parent": ".",
+                "config": {
+                    "variable": "PY_VAR1",
+                    "value": "B",
+                    "takefocus": "ttk::takefocus",
+                    "text": "Choice B",
+                    "underline": -1,
+                    "state": "normal"
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.03,
+                    "rely": 0.36,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                }
+            },
+            "!progressbar": {
+                "type": "TProgressbar",
+                "parent": ".",
+                "config": {
+                    "orient": "horizontal",
+                    "length": 100,
+                    "mode": "determinate",
+                    "maximum": 100,
+                    "value": 65
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.25,
+                    "rely": 0.3,
+                    "relwidth": 0.25,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                }
+            },
+            "!scale": {
+                "type": "TScale",
+                "parent": ".",
+                "config": {
+                    "orient": "horizontal",
+                    "to": 100,
+                    "length": 100,
+                    "state": "normal",
+                    "takefocus": "ttk::takefocus"
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.55,
+                    "rely": 0.3,
+                    "relwidth": 0.25,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                }
+            },
+            "!treeview": {
+                "type": "Treeview",
+                "parent": ".",
+                "config": {
+                    "columns": [
+                        "A",
+                        "B"
+                    ],
+                    "displaycolumns": [
+                        "#all"
+                    ],
+                    "show": [
+                        "headings"
+                    ],
+                    "selectmode": "extended",
+                    "height": 5,
+                    "takefocus": "ttk::takefocus"
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.03,
+                    "rely": 0.45,
+                    "relwidth": 0.45,
+                    "relheight": 0.3,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                }
+            },
+            "!notebook": {
+                "type": "TNotebook",
+                "parent": ".",
+                "config": {
+                    "takefocus": "ttk::takefocus"
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.52,
+                    "rely": 0.45,
+                    "relwidth": 0.45,
+                    "relheight": 0.3,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                }
+            },
+            "!text": {
+                "type": "Text",
+                "parent": ".",
+                "config": {
+                    "autoseparators": 1,
+                    "background": "#1e1e1e",
+                    "bd": 1,
+                    "bg": "#1e1e1e",
+                    "borderwidth": 1,
+                    "cursor": "xterm",
+                    "exportselection": 1,
+                    "fg": "white",
+                    "font": "TkFixedFont",
+                    "foreground": "white",
+                    "height": 24,
+                    "highlightbackground": "#d9d9d9",
+                    "highlightcolor": "#000000",
+                    "highlightthickness": 1,
+                    "inactiveselectbackground": "#c3c3c3",
+                    "insertbackground": "white",
+                    "insertofftime": 300,
+                    "insertontime": 600,
+                    "insertunfocussed": "none",
+                    "insertwidth": 2,
+                    "padx": 1,
+                    "pady": 1,
+                    "relief": "sunken",
+                    "selectbackground": "#c3c3c3",
+                    "selectforeground": "#000000",
+                    "state": "normal",
+                    "tabstyle": "tabular",
+                    "width": 80,
+                    "wrap": "char"
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.03,
+                    "rely": 0.8,
+                    "relwidth": 0.45,
+                    "relheight": 0.15,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                }
+            },
+            "!listbox": {
+                "type": "Listbox",
+                "parent": ".",
+                "config": {
+                    "activestyle": "dotbox",
+                    "background": "#1e1e1e",
+                    "bd": 1,
+                    "bg": "#1e1e1e",
+                    "borderwidth": 1,
+                    "disabledforeground": "#a3a3a3",
+                    "exportselection": 1,
+                    "fg": "white",
+                    "font": "TkDefaultFont",
+                    "foreground": "white",
+                    "height": 10,
+                    "highlightbackground": "#d9d9d9",
+                    "highlightcolor": "#000000",
+                    "highlightthickness": 1,
+                    "justify": "left",
+                    "relief": "sunken",
+                    "selectbackground": "#4444aa",
+                    "selectforeground": "#000000",
+                    "selectmode": "browse",
+                    "state": "normal",
+                    "width": 20
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.52,
+                    "rely": 0.8,
+                    "relwidth": 0.45,
+                    "relheight": 0.15,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                },
+                "set": [
+                    "Alpha",
+                    "Beta",
+                    "Gamma",
+                    "Delta"
+                ]
+            }
+        }
+    }
+}
