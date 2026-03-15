@@ -80,7 +80,7 @@ class TkConstructor:
         root = self._create_window(window_build)
 
         # Create widgets attached to the root window
-        self._create_widget(widget_build, root)
+        self._create_widgets(widget_build, root)
 
         return root
 
@@ -139,32 +139,79 @@ class TkConstructor:
 
         return root
 
-    def _create_widget(self, widget_build, root):
+    def _create_widgets(self, widget_builds, root):
         """
-        Create all widgets described in the configuration and attach
-        them to the provided root window.
-
+        Create all widgets described in the configuration
         Params:
-            widget_build: Iterable containing widget configuration groups.
+            widget_builds: Iterable containing widget configuration groups.
             root: The parent tkinter widget (usually the root window).
         """
 
-        for widget in widget_build:
+        for widget in widget_builds:
+            self._create_widget(widget, root)
 
-            # Resolve the tkinter class corresponding to the widget type
-            try:
-                widget_call = self.widget_map[widget["type"].value]
-            except:
-                # Fallback for unsupported or unimplemented widget types
-                print("widget type not yet implemented")
 
-            # Create widget instance
-            new_widget = widget_call(root, **widget["config"].kwargs)
+    def _create_widget(self, widget_build, root):
+        """
+        Create the widget described in the configuration
+        
+        Params:
+            widget_build (SubGroup): A widget configuration group.
+            root: The parent tkinter widget.
+        """
+        special_case_widget = {
+            "Listbox": self._list_box_insert
+        }
 
-            # Apply geometry placement configuration
-            new_widget.place(**widget["place"].kwargs)
+        # Resolve the tkinter class corresponding to the widget type
+        widget_call = self._verify_supported_widget(widget_build)
 
-            # Special handling for widgets requiring data insertion
-            if widget["type"].value == "Listbox":
-                print("yes")
-                new_widget.insert("end", *widget["set"].value)
+        # Create widget instance
+        new_widget = widget_call(root, **widget_build["config"].kwargs)
+
+        # Apply geometry placement configuration
+        self._place_widget(widget_build, new_widget)
+
+        # Special handling for widgets requiring data insertion
+        try:
+            special_case_widget[widget_build["type"].value](widget_build, new_widget)
+        except:
+            #TODO: i'm aware this is wrong. look into the best way to handle this. I could use just print, i want something else though. This is like a fancy if.
+            pass
+
+    def _verify_supported_widget(self, widget_build):
+        """
+        Verify that the widget type is supported and return the required tkinter call.
+        
+        Params:
+            widget_build (SubGroup): A widget configuration group.
+        Returns:
+            widget_call: The call required to instantiate the widget.
+        """
+
+        print(widget_build["type"].value)
+        try:
+            widget_call = self.widget_map[widget_build["type"].value]
+            return widget_call
+        except:
+            # Fallback for unsupported or unimplemented widget types
+            print("widget type not yet implemented")
+        
+
+    def _place_widget(self, widget_build, new_widget):
+        """
+        Place the widget on screen
+        
+        Params:
+            widget_build (SubGroup): A widget configuration group.
+            new_widget: The widget object to be placed.
+        """
+
+        new_widget.place(**widget_build["place"].kwargs)
+                
+    def _list_box_insert(self, widget, new_widget):
+        """
+        
+        """
+        if widget["type"].value == "Listbox":
+            new_widget.insert("end", *widget["set"].value)
