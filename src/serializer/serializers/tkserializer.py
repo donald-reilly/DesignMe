@@ -94,10 +94,11 @@ class TkSerializer:
 
         for key in widget.keys():
             value = widget.cget(key)
-            if value != "" and value != 0:
+            if value != "" and value != 0 and key != "class":
                 yield key, value
             else:
                 continue
+
     def _get_widget_place(self, widget):
         """
         Populates the configuration entry for a widget's place geometry options.
@@ -131,6 +132,7 @@ class TkSerializer:
             window (tkinter.Tk | tkinter.Toplevel): The window whose widgets are serialized.
             configuration (dict): The configuration dictionary to update.
         """
+
         children_config = configuration["children"]
         for name, widget in self._get_window_children(window):
             children_config[name]["type"] = widget.winfo_class()
@@ -139,3 +141,5 @@ class TkSerializer:
                 children_config[name]["config"][key] = value
             for key, value in self._get_widget_place(widget):
                 children_config[name]["place"][key] = value
+            if widget.winfo_class() == "Listbox":
+                children_config[name]["set"] = widget.get(0, "end")
