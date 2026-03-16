@@ -143,3 +143,5 @@ class TkSerializer:
                 children_config[name]["place"][key] = value
             if widget.winfo_class() == "Listbox":
                 children_config[name]["set"] = widget.get(0, "end")
+            if widget.winfo_class() == "TEntry":
+                children_config[name]["set"] = widget.get()
