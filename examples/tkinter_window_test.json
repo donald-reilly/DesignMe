@@ -100,7 +100,8 @@
                     "relheight": 0.1,
                     "anchor": "nw",
                     "bordermode": "inside"
-                }
+                },
+                "set": "Type here\u2026"
             },
             "!checkbutton": {
                 "type": "TCheckbutton",

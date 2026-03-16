@@ -43,6 +43,7 @@ chk_var = tk.BooleanVar(value=True)
 chk = ttk.Checkbutton(
     root,
     text="Enable Feature",
+    #TODO: I need to deal with variables like checkvar. how to access them, how they are created, stored accessed. How to inpsect for them and everythign.
     variable=chk_var,
 )
 chk.place(relx=0.05, rely=0.25, relwidth=0.25, relheight=0.08)
@@ -150,4 +151,5 @@ new_constructor = BConstructed()
 
 new_configuration = new_serializer(root)
 
-new_serializer.save_configuration("examples/tkinter_window_test.json", new_configuration)
+#TODO: this doens't work the way I want it too. So look into this piece of shit and find out hwo to access the vars this wya. I might need to handle it on the other end upon creation. Still need a way though.
+print(root.tk.call("info", "vars"))
