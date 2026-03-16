@@ -16,38 +16,13 @@ class TkConstructor:
 
         # Dispatch table for creating top-level tkinter objects
         # based on configuration group type.
-        self.tk_object_creation_dispatch = {
-            "window": self._create_window,
-            "widget": self._create_widget
-        }
+
+        self.window_constructor = WindowConstructor()
+        self.widget_constructor = WidgetConstructor()
 
         # Mapping between serialized widget identifiers and the
         # actual tkinter/ttk classes used to construct them.
-        self.widget_map = {
-            "TFrame": ttk.Frame,
-            "TLabelframe": ttk.LabelFrame,
-            "TLabel": ttk.Label,
-            "TButton": ttk.Button,
-            "TEntry": ttk.Entry,
-            "TCheckbutton": ttk.Checkbutton,
-            "TRadiobutton": ttk.Radiobutton,
-            "TCombobox": ttk.Combobox,
-            "TProgressbar": ttk.Progressbar,
-            "TScale": ttk.Scale,
-            "TScrollbar": ttk.Scrollbar,
-            "TSeparator": ttk.Separator,
-            "TSizegrip": ttk.Sizegrip,
-            "TTreeview": ttk.Treeview,
-            "TNotebook": ttk.Notebook,
-            "TPanedwindow": ttk.PanedWindow,
-            "Canvas": tk.Canvas,
-            "Text": tk.Text,
-            "Listbox": tk.Listbox,
-            "Menu": tk.Menu,
-            "Menubutton": tk.Menubutton,
-            "Toplevel": tk.Toplevel,
-            "Spinbox": tk.Spinbox
-        }
+
 
     def __call__(self, configuration):
         """
@@ -77,10 +52,10 @@ class TkConstructor:
         window_build, widget_build = self._extract_dictionaries(configuration)
 
         # Create root window
-        root = self._create_window(window_build)
+        root = self.window_constructor(window_build)
 
         # Create widgets attached to the root window
-        self._create_widgets(widget_build, root)
+        self.widget_constructor(widget_build, root)
 
         return root
 
@@ -103,7 +78,12 @@ class TkConstructor:
 
         return window_build, widget_build
 
-    def _create_window(self, window_build):
+class WindowConstructor:
+    def __call__(self, window_build):
+
+        return self._construct_window(window_build)
+    
+    def _construct_window(self, window_build):
         """
         Construct the root tkinter window using the provided configuration.
 
@@ -115,8 +95,12 @@ class TkConstructor:
         """
 
         root = tk.Tk()
-
         # Apply window configuration parameters
+        self._set_window_attributes(window_build, root)
+        return root
+
+    def _set_window_attributes(self, window_build, root):
+
         root.title(window_build["title"].value)
         root.geometry(window_build["geometry"].value)
 
@@ -137,9 +121,37 @@ class TkConstructor:
         # Set window state (normal, iconic, zoomed, etc.)
         root.state(window_build["state"].value)
 
-        return root
+class WidgetConstructor:
+    def __init__(self):
+        self.widget_map = {
+            "TFrame": ttk.Frame,
+            "TLabelframe": ttk.LabelFrame,
+            "TLabel": ttk.Label,
+            "TButton": ttk.Button,
+            "TEntry": ttk.Entry,
+            "TCheckbutton": ttk.Checkbutton,
+            "TRadiobutton": ttk.Radiobutton,
+            "TCombobox": ttk.Combobox,
+            "TProgressbar": ttk.Progressbar,
+            "TScale": ttk.Scale,
+            "TScrollbar": ttk.Scrollbar,
+            "TSeparator": ttk.Separator,
+            "TSizegrip": ttk.Sizegrip,
+            "TTreeview": ttk.Treeview,
+            "TNotebook": ttk.Notebook,
+            "TPanedwindow": ttk.PanedWindow,
+            "Canvas": tk.Canvas,
+            "Text": tk.Text,
+            "Listbox": tk.Listbox,
+            "Menu": tk.Menu,
+            "Menubutton": tk.Menubutton,
+            "Toplevel": tk.Toplevel,
+            "Spinbox": tk.Spinbox
+        }
+    def __call__(self, widget_builds, root):
+        self._construct_widgets(widget_builds, root)
 
-    def _create_widgets(self, widget_builds, root):
+    def _construct_widgets(self, widget_builds, root):
         """
         Create all widgets described in the configuration
         Params:
@@ -148,10 +160,9 @@ class TkConstructor:
         """
 
         for widget in widget_builds:
-            self._create_widget(widget, root)
+            self._construct_widget(widget, root)
 
-
-    def _create_widget(self, widget_build, root):
+    def _construct_widget(self, widget_build, root):
         """
         Create the widget described in the configuration
         
@@ -160,7 +171,8 @@ class TkConstructor:
             root: The parent tkinter widget.
         """
         special_case_widget = {
-            "Listbox": self._list_box_insert
+            "Listbox": self._list_box_insert,
+            "TEntry": self._entry_insert
         }
 
         # Resolve the tkinter class corresponding to the widget type
@@ -173,11 +185,9 @@ class TkConstructor:
         self._place_widget(widget_build, new_widget)
 
         # Special handling for widgets requiring data insertion
-        try:
-            special_case_widget[widget_build["type"].value](widget_build, new_widget)
-        except:
-            #TODO: i'm aware this is wrong. look into the best way to handle this. I could use just print, i want something else though. This is like a fancy if.
-            pass
+        special_case_call = special_case_widget.get(widget_build["type"].value)
+        if special_case_call:
+            special_case_call(widget_build, new_widget)
 
     def _verify_supported_widget(self, widget_build):
         """
@@ -189,14 +199,12 @@ class TkConstructor:
             widget_call: The call required to instantiate the widget.
         """
 
-        print(widget_build["type"].value)
         try:
             widget_call = self.widget_map[widget_build["type"].value]
             return widget_call
         except:
             # Fallback for unsupported or unimplemented widget types
             print("widget type not yet implemented")
-        
 
     def _place_widget(self, widget_build, new_widget):
         """
@@ -209,9 +217,25 @@ class TkConstructor:
 
         new_widget.place(**widget_build["place"].kwargs)
                 
-    def _list_box_insert(self, widget, new_widget):
+    def _list_box_insert(self, widget_build, new_widget):
         """
+        Place values in listbox
+
+        Params:
+            widget: The listbox build
+            new_widget: The listbox
+        """
+
+        new_widget.insert("end", *widget_build["set"].value)
+
+    def _entry_insert(self, widget, new_widget):
+        """
+        Place values in entry
+
+        Params:
+            widget: The entry build
+            new_widget: The entry
+        """
+ 
+        new_widget.insert(0, widget["set"].value)
         
-        """
-        if widget["type"].value == "Listbox":
-            new_widget.insert("end", *widget["set"].value)
