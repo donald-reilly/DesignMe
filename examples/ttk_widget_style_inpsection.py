@@ -164,8 +164,8 @@ tree.place(relx=0.03, rely=0.45, relwidth=0.45, relheight=0.3)
 notebook = ttk.Notebook(root)
 notebook.place(relx=0.52, rely=0.45, relwidth=0.45, relheight=0.3)
 
-tab1 = ttk.Frame(notebook)
-tab2 = ttk.Frame(notebook)
+tab1 = ttk.Button(notebook, text="Tab 1 Content")
+tab2 = ttk.Button(notebook, text="Tab 2 Content")
 
 notebook.add(tab1, text="Tab 1")
 notebook.add(tab2, text="Tab 2")
@@ -208,4 +208,4 @@ new_constructor = BConstructed()
 
 new_configuration = new_serializer(root)
 
-new_serializer.save_configuration("examples/tkinter_window_style_test.json", new_configuration)
+root.mainloop()

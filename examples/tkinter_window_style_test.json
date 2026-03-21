@@ -16,8 +16,8 @@
                 1
             ],
             "maxsize": [
-                1905,
-                1050
+                3425,
+                2490
             ],
             "resizable": [
                 1,
@@ -99,7 +99,8 @@
                     "relwidth": 0.25,
                     "anchor": "nw",
                     "bordermode": "inside"
-                }
+                },
+                "set": "Type something here..."
             },
             "!combobox": {
                 "type": "TCombobox",

@@ -1,0 +1,41 @@
+{
+    "window": {
+        "config": {
+            "title": "Default Title",
+            "configure": {
+                "relief": "flat",
+                "background": "#2b2b2b",
+                "highlightbackground": "#d9d9d9",
+                "highlightcolor": "#000000",
+                "takefocus": "0"
+            },
+            "geometry": "800x600",
+            "minsize": [
+                1,
+                1
+            ],
+            "maxsize": [
+                3425,
+                2490
+            ],
+            "resizable": [
+                1,
+                1
+            ],
+            "iconbitmap": "",
+            "state": "normal",
+            "attributes": [
+                "-alpha",
+                1.0,
+                "-topmost",
+                0,
+                "-zoomed",
+                0,
+                "-fullscreen",
+                0,
+                "-type",
+                ""
+            ]
+        }
+    }
+}

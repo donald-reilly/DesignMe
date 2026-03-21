@@ -1,0 +1,142 @@
+{
+    "window": {
+        "config": {
+            "title": "Introspection Test Window",
+            "configure": {
+                "class": "Tk",
+                "relief": "flat",
+                "background": "#222222",
+                "bg": "#222222",
+                "highlightbackground": "#d9d9d9",
+                "highlightcolor": "#000000",
+                "takefocus": "0"
+            },
+            "geometry": "800x500",
+            "minsize": [
+                1,
+                1
+            ],
+            "maxsize": [
+                1905,
+                1050
+            ],
+            "resizable": [
+                1,
+                1
+            ],
+            "iconbitmap": "",
+            "state": "normal",
+            "attributes": [
+                "-alpha",
+                1.0,
+                "-topmost",
+                0,
+                "-zoomed",
+                0,
+                "-fullscreen",
+                0,
+                "-type",
+                ""
+            ]
+        },
+        "children": {
+            "!button": {
+                "type": "TButton",
+                "parent": ".",
+                "config": {
+                    "default": "normal",
+                    "takefocus": "ttk::takefocus",
+                    "text": "Click Me",
+                    "underline": -1,
+                    "state": "normal"
+                },
+                "place": {
+                    "in": ".",
+                    "relx": 0.05,
+                    "rely": 0.05,
+                    "relwidth": 0.25,
+                    "relheight": 0.12,
+                    "anchor": "nw",
+                    "bordermode": "inside"
+                }
+            },
+            "!menu": {
+                "type": "Menu",
+                "config": {
+                    "activebackground": "#ececec",
+                    "activeborderwidth": 1,
+                    "activeforeground": "#000000",
+                    "background": "#d9d9d9",
+                    "bd": 1,
+                    "bg": "#d9d9d9",
+                    "borderwidth": 1,
+                    "cursor": "arrow",
+                    "disabledforeground": "#a3a3a3",
+                    "fg": "#000000",
+                    "font": "TkMenuFont",
+                    "foreground": "#000000",
+                    "postcommand": "",
+                    "relief": "raised",
+                    "selectcolor": "#000000",
+                    "takefocus": 0,
+                    "tearoff": 1,
+                    "tearoffcommand": "",
+                    "title": "This is a menu",
+                    "type": "normal"
+                },
+                "children": {
+                        "!menu.!menu.!cascade": {
+                        "type": "cascade",
+                        "config": {
+                            "label": "File"               
+                        },
+                        "children": {
+                            "command1":{
+                                "type": "command",
+                                "config": {
+                                    "label": "New Python File"
+                                }
+                            },
+                            "command2":{
+                                "type": "command",
+                                "config": {
+                                    "label": "New Text File"
+                                }
+                            },
+                        "!menu.!menu.!cascade": {
+                        "type": "cascade",
+                        "config": {
+                            "label": "File"               
+                        },
+                        "children": {
+                            "command1":{
+                                "type": "command",
+                                "config": {
+                                    "label": "New Python File"
+                                }
+                            },
+                            "command2":{
+                                "type": "command",
+                                "config": {
+                                    "label": "New Text File"
+                                }
+                            },
+                            "command3":{
+                                "type": "command",
+                                "config": {
+                                    "label": "New C++ File"
+                                }
+                            }
+
+                        }
+                    }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
