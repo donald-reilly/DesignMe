@@ -1,7 +1,7 @@
 from figman import FigMan, MasterGroup
 from persistance import BPersistent
 from serializer.serializers import TkSerializer
-import  tkinter as tk
+import tkinter as tk
 
 class BSerialized:
     """
