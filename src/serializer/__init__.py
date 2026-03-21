@@ -1,3 +1,3 @@
-from serializer.serializer import BSerialized
+from .serializer import BSerialized
 
 __all__ = ["BSerialized"]

@@ -1,5 +1,3 @@
-from serializer.serializers.tkserializer import TkSerializer
+from .tkserializer import TkSerializer
 
-__all__ = [
-    'TkSerializer'
-]
+__all__ = ["TkSerializer"]

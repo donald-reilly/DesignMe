@@ -1,5 +1,3 @@
-from constructor.constructor import BConstructed
+from .constructor import BConstructed
 
-__all__ = [
-    'BConstructed'
-]
+__all__ = ["BConstructed"]

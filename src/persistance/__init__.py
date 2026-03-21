@@ -1,5 +1,3 @@
-from persistance.persistance import BPersistent
+from .persistance import BPersistent
 
-__all__= [
-    'BPersistent'
-]
+__all__ = ["BPersistent"]
