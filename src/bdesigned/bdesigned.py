@@ -16,9 +16,10 @@ class BDesigned:
         #self.config_dict_manager = self.gui_manager.config_dict_manager
         #
         #self.edit_popups = []
+        
         loader = BConstructed()
-        self.build = loader.create_widget("window")
-
+        self.new_window = loader("window")
+        self.button = loader("button", self.new_window)
         
     def create_menu_command_map(self) -> Dict[str, callable]:
         """
@@ -250,7 +251,10 @@ class BDesigned:
                     self.current_widget.place(rely = value.get())
     def _save_widget_settings(self) -> None:
         print("Saving Widget Settings!")
-        
-if __name__ == '__main__':
-    main = BDesigned()
-    main.build.mainloop()
+
+if __name__ == "__main__":
+    app = BDesigned()
+    app.new_window.mainloop()
+    #TODO: You think too highly of yourself and it's showing. Yes you can write this. Yes you can make this happen. Yes you have the ability and can plan this all out. No you cannot think twenty steps ahead and build the whole thing before you even start.
+    #TODO: Start in the beggining like you are. Build the pipline for creating widgets. BUild the way you are going to put them together. Get that going so you can create the main. App. Then build the way you are going to load entire apps from FigMan. Simple shit. DOn't write the whole world.
+    #TODO: You can handle all of these fun projects. You can write it all, you will write a language, you will write this IDE. You just need to actaully do it and come up with a more concrete plan. You don't need breaks you don't need a life outside of this, you dont need to "live" life. You need to do this, don't be a pussy.
