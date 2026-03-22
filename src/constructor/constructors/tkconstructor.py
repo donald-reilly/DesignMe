@@ -3,81 +3,15 @@ from tkinter import ttk
 
 
 class TkConstructor:
-    """
-    TkConstructor provides the logic for reconstructing a tkinter
-    application from a FigMan configuration structure.
-
-    The class reads configuration groups describing the window and
-    widgets, then dynamically builds the tkinter UI from that data.
-    """
-
     def __init__(self):
-        """Initialize TkConstructor and register supported widget types."""
-
-        # Dispatch table for creating top-level tkinter objects
-        # based on configuration group type.
-
         self.window_constructor = WindowConstructor()
         self.widget_constructor = WidgetConstructor()
-
-        # Mapping between serialized widget identifiers and the
-        # actual tkinter/ttk classes used to construct them.
-
-
-    def __call__(self, configuration):
-        """
-        Build a tkinter application from a FigMan configuration.
-
-        Params:
-            configuration: The FigMan configuration object describing
-                           the window and widget hierarchy.
-
-        Returns:
-            tk.Tk: The root tkinter application window.
-        """
-        return self._build_app(configuration)
-
-    def _build_app(self, configuration):
-        """
-        Construct the root window and all widgets from the configuration.
-
-        Params:
-            configuration: FigMan configuration object.
-
-        Returns:
-            tk.Tk: The constructed root window.
-        """
-
-        # Extract window configuration and widget configuration
-        window_build, widget_build = self._extract_dictionaries(configuration)
-
-        # Create root window
-        root = self.window_constructor(window_build)
-
-        # Create widgets attached to the root window
-        self.widget_constructor(widget_build, root)
-
-        return root
-
-    def _extract_dictionaries(self, configruation):
-        """
-        Extract the window configuration and widget configuration
-        sections from the FigMan configuration object.
-
-        Params:
-            configruation: FigMan configuration structure.
-
-        Returns:
-            tuple:
-                window_build -> configuration for the root window
-                widget_build -> list of widget configuration groups
-        """
-
-        window_build = configruation["config"]
-        widget_build = configruation["children"]
-
-        return window_build, widget_build
-
+    def __call__(self, config):
+        pass
+    def _build_window(self, config):
+        return self.window_constructor(config)
+    def _build_widget(self, config, root):
+        return self.widget_constructor._construct_widget(config, root)       
 class WindowConstructor:
     def __call__(self, window_build):
 
@@ -96,7 +30,7 @@ class WindowConstructor:
 
         root = tk.Tk()
         # Apply window configuration parameters
-        self._set_window_attributes(window_build, root)
+        self._set_window_attributes(window_build["config"], root)
         return root
 
     def _set_window_attributes(self, window_build, root):
@@ -111,7 +45,7 @@ class WindowConstructor:
 
         #TODO: I don't know why this shit isn't working all of a sudden.
         # Apply root window configuration dictionary
-        #root.configure(**window_build["configure"].kwargs)
+        root.configure(**window_build["configure"].kwargs)
 
         # Set application icon
         root.iconbitmap(window_build["iconbitmap"].value)
@@ -149,20 +83,6 @@ class WidgetConstructor:
             "Toplevel": tk.Toplevel,
             "Spinbox": tk.Spinbox
         }
-    def __call__(self, widget_builds, root):
-        self._construct_widgets(widget_builds, root)
-
-    def _construct_widgets(self, widget_builds, root):
-        """
-        Create all widgets described in the configuration
-        Params:
-            widget_builds: Iterable containing widget configuration groups.
-            root: The parent tkinter widget (usually the root window).
-        """
-
-        for widget in widget_builds:
-            new_widget = self._construct_widget(widget, root)
-            
 
     def _construct_widget(self, widget_build, root):
         """
@@ -172,6 +92,7 @@ class WidgetConstructor:
             widget_build (SubGroup): A widget configuration group.
             root: The parent tkinter widget.
         """
+
         special_case_widget = {
             "Listbox": self._list_box,
             "TEntry": self._entry,
