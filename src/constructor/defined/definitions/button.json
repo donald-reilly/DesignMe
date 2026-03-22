@@ -1,0 +1,26 @@
+{
+    "button": {
+        "type": "TButton",
+        "config": {
+            "default": "normal",
+            "takefocus": "ttk::takefocus",
+            "text": "Default Button",
+            "textvariable": "",
+            "underline": "-1",
+            "width": "",
+            "image": "",
+            "compound": "",
+            "padding": "",
+            "state": "normal",
+            "cursor": "",
+            "style": "",
+            "class": ""
+        },
+        "place": {
+            "anchor": "center",
+            "relx": 0.5,
+            "rely": 0.5
+        },
+        "command": ""
+    }
+}
