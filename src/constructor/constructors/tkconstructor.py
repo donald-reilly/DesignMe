@@ -4,19 +4,51 @@ from tkinter import ttk
 
 class TkConstructor:
     def __init__(self):
-        self.window_constructor = WindowConstructor()
-        self.widget_constructor = WidgetConstructor()
-    def __call__(self, config):
-        pass
-    def _build_window(self, config):
-        return self.window_constructor(config)
-    def _build_widget(self, config, root):
-        return self.widget_constructor._construct_widget(config, root)       
-class WindowConstructor:
-    def __call__(self, window_build):
 
-        return self._construct_window(window_build)
-    
+        self.widget_constructor = WidgetConstructor()
+
+    def __call__(self, config):
+        if config["type"].value in self.widget_constructor.widget_map:
+            new_widget = self.widget_constructor(config, root=None)
+            return new_widget
+        else:
+            print("widget type not yet implemented")
+
+class WidgetConstructor:
+    def __init__(self):
+        self.widget_map = {
+            "Window": tk.Tk,
+            "TFrame": ttk.Frame,
+            "TLabelframe": ttk.LabelFrame,
+            "TLabel": ttk.Label,
+            "TButton": ttk.Button,
+            "TEntry": ttk.Entry,
+            "TCheckbutton": ttk.Checkbutton,
+            "TRadiobutton": ttk.Radiobutton,
+            "TCombobox": ttk.Combobox,
+            "TProgressbar": ttk.Progressbar,
+            "TScale": ttk.Scale,
+            "TScrollbar": ttk.Scrollbar,
+            "TSeparator": ttk.Separator,
+            "TSizegrip": ttk.Sizegrip,
+            "TTreeview": ttk.Treeview,
+            "TNotebook": ttk.Notebook,
+            "TPanedwindow": ttk.PanedWindow,
+            "Canvas": tk.Canvas,
+            "Text": tk.Text,
+            "Listbox": tk.Listbox,
+            "Menu": tk.Menu,
+            "Menubutton": tk.Menubutton,
+            "Toplevel": tk.Toplevel,
+            "Spinbox": tk.Spinbox
+        }
+
+    def __call__(self, config, root=None):
+        if config["type"].value == "Window":
+            new_widget = self._construct_window(config)
+        else:
+            new_widget = self._construct_widget(config, root)
+        return new_widget
     def _construct_window(self, window_build):
         """
         Construct the root tkinter window using the provided configuration.
@@ -43,7 +75,6 @@ class WindowConstructor:
 
         root.resizable(*window_build["resizable"].value)
 
-        #TODO: I don't know why this shit isn't working all of a sudden.
         # Apply root window configuration dictionary
         root.configure(**window_build["configure"].kwargs)
 
@@ -55,34 +86,6 @@ class WindowConstructor:
 
         # Set window state (normal, iconic, zoomed, etc.)
         root.state(window_build["state"].value)
-
-class WidgetConstructor:
-    def __init__(self):
-        self.widget_map = {
-            "TFrame": ttk.Frame,
-            "TLabelframe": ttk.LabelFrame,
-            "TLabel": ttk.Label,
-            "TButton": ttk.Button,
-            "TEntry": ttk.Entry,
-            "TCheckbutton": ttk.Checkbutton,
-            "TRadiobutton": ttk.Radiobutton,
-            "TCombobox": ttk.Combobox,
-            "TProgressbar": ttk.Progressbar,
-            "TScale": ttk.Scale,
-            "TScrollbar": ttk.Scrollbar,
-            "TSeparator": ttk.Separator,
-            "TSizegrip": ttk.Sizegrip,
-            "TTreeview": ttk.Treeview,
-            "TNotebook": ttk.Notebook,
-            "TPanedwindow": ttk.PanedWindow,
-            "Canvas": tk.Canvas,
-            "Text": tk.Text,
-            "Listbox": tk.Listbox,
-            "Menu": tk.Menu,
-            "Menubutton": tk.Menubutton,
-            "Toplevel": tk.Toplevel,
-            "Spinbox": tk.Spinbox
-        }
 
     def _construct_widget(self, widget_build, root):
         """
