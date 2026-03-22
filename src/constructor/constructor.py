@@ -27,7 +27,7 @@ class BConstructed():
         self.constructor = TkConstructor()
         self.defined = BDefined()
 
-    def __call__(self, widget_type):
+    def __call__(self, widget_type, root = None):
         """
         Build the application described by a configuration file.
 
@@ -44,10 +44,10 @@ class BConstructed():
             }
         """
 
-        build = self.load_main_window(widget_type)
+        build = self.create_widget(widget_type, root)
         return build
 
-    def create_widget(self, widget_type):
+    def create_widget(self, widget_type, root=None):
         """
         Create a tkinter widget based on the configuration for the specified widget type.
 
@@ -57,6 +57,10 @@ class BConstructed():
         Returns:
             widget: The created tkinter widget.
         """
+
         config = self.defined(widget_type)
-        widget = self.constructor(config)
-        return widget
+        if widget_type == "window":
+            app = self.constructor._build_window(config)
+        if widget_type == "button":
+            app = self.constructor._build_widget(config, root)
+        return app            
