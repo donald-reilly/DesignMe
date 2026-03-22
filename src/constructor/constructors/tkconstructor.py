@@ -7,9 +7,9 @@ class TkConstructor:
 
         self.widget_constructor = WidgetConstructor()
 
-    def __call__(self, config):
+    def __call__(self, config, root):
         if config["type"].value in self.widget_constructor.widget_map:
-            new_widget = self.widget_constructor(config, root=None)
+            new_widget = self.widget_constructor(config, root)
             return new_widget
         else:
             print("widget type not yet implemented")
