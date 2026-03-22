@@ -17,10 +17,10 @@ class BDesigned:
         #
         #self.edit_popups = []
         
-        loader = BConstructed()
+        loader = BConstructed(self.create_menu_command_map())
         self.new_window = loader("window")
         self.button = loader("button", self.new_window)
-        
+        self.menu = loader("menu", self.new_window)
     def create_menu_command_map(self) -> Dict[str, callable]:
         """
         Create a mapping of menu commands to functions.
@@ -36,9 +36,12 @@ class BDesigned:
             'View_Mode': self.mode_selection,
             'Edit_Mode': self.mode_selection,
             'Move_Mode': self.mode_selection,
+            "print": self.print_this
         }
         return command_map
         
+    def print_this(self):
+        print("Button Pressed!")
     def mode_selection(self, widget_list: List, mode: str = 'Move_Mode') -> None:
         """
         Handle mode selection for widgets.
