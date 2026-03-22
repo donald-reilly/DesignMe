@@ -44,23 +44,6 @@ class BConstructed():
             }
         """
 
-        build = self.create_widget(widget_type, root)
-        return build
-
-    def create_widget(self, widget_type, root=None):
-        """
-        Create a tkinter widget based on the configuration for the specified widget type.
-
-        Params:
-            widget_type: The type of widget to create.
-
-        Returns:
-            widget: The created tkinter widget.
-        """
-
         config = self.defined(widget_type)
-        if widget_type == "window":
-            app = self.constructor._build_window(config)
-        if widget_type == "button":
-            app = self.constructor._build_widget(config, root)
-        return app            
+        build = self.constructor(config, root)
+        return build
