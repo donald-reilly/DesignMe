@@ -25,7 +25,7 @@ class BDefined:
             "checkbutton": "src/constructor/defined/definitions/checkbutton.json",
             "radiobutton": "src/constructor/defined/definitions/radiobutton.json",
             "listbox": "src/constructor/defined/definitions/listbox.json",
-
+            "menu": "src/constructor/defined/definitions/menu.json"
         }
     def __call__(self, object_type):
 

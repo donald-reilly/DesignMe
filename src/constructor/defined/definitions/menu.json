@@ -1,0 +1,42 @@
+{
+    "menu": {
+        "type": "Menu",
+        "command": null,
+        "config": {
+        },
+        "children": {
+            "menu": {
+                "type": "cascade",
+                "command": null,
+                "config": {
+                    "label": "File"
+                },
+                "children": {
+                    "command": {
+                        "type": "cascade",
+                        "command": null,
+                        "config": {
+                            "label": "Add Menu Item"
+                        },
+                        "children":{
+                            "command": {
+                                "type": "command",
+                                "command": null,
+                                "config": {
+                                    "label": "Add Command"
+                                }
+                            },
+                            "separator": {
+                                "type": "command",
+                                "command": null,
+                                "config": {
+                                    "label": "Add Separator"
+                                }
+                            }
+                        }
+                    }
+                }
+            } 
+        }
+    }
+}

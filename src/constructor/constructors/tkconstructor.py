@@ -190,4 +190,5 @@ class WidgetConstructor:
                     self._recurse_children(child, parent_menu=new_menu)
             elif child["type"].value == "command":
                 parent_menu.add_command(label=child["config"]["label"].value)
-
+            elif child["type"].value == "separator":
+                parent_menu.add_separator()

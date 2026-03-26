@@ -1,6 +1,7 @@
 
 from constructor.constructors import TkConstructor
 from constructor.defined import BDefined
+from constructor.bindings import BBound
 
 class BConstructed():
     """
@@ -12,7 +13,7 @@ class BConstructed():
     to build the tkinter interface.
     """
 
-    def __init__(self):
+    def __init__(self, command_map: dict = None):
         """
         Initialize BConstructed and its core components.
 
@@ -26,7 +27,7 @@ class BConstructed():
         # plugins, or alternative constructors). Something worth exploring later.
         self.constructor = TkConstructor()
         self.defined = BDefined()
-
+        self.bound = BBound(command_map)
     def __call__(self, widget_type, root = None):
         """
         Build the application described by a configuration file.
@@ -46,4 +47,6 @@ class BConstructed():
 
         config = self.defined(widget_type)
         build = self.constructor(config, root)
+        if config["type"].value != "Window" and config["type"].value != "Menu":
+            self.bound(build, config)
         return build
