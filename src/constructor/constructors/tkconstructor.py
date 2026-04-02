@@ -8,7 +8,7 @@ class TkConstructor:
         self.widget_constructor = WidgetConstructor()
 
     def __call__(self, config, root):
-        if config["type"].value in self.widget_constructor.widget_map:
+        if config["type"].value in self.widget_constructor.widget_map.keys():
             new_widget = self.widget_constructor(config, root)
             return new_widget
         else:
@@ -92,7 +92,7 @@ class WidgetConstructor:
         Create the widget described in the configuration
         
         Params:
-            widget_build (SubGroup): A widget configuration group.
+            widget_build (Group): A widget configuration group.
             root: The parent tkinter widget.
         """
 
@@ -123,7 +123,7 @@ class WidgetConstructor:
         Verify that the widget type is supported and return the required tkinter call.
         
         Params:
-            widget_build (SubGroup): A widget configuration group.
+            widget_build (Group): A widget configuration group.
         Returns:
             widget_call: The call required to instantiate the widget.
         """
@@ -140,7 +140,7 @@ class WidgetConstructor:
         Place the widget on screen
         
         Params:
-            widget_build (SubGroup): A widget configuration group.
+            widget_build (Group): A widget configuration group.
             new_widget: The widget object to be placed.
         """
 

@@ -1,4 +1,4 @@
-from figman import FigMan, MasterGroup
+from figman import MasterGroup
 from persistance import BPersistent
 from serializer.serializers import TkSerializer
 import tkinter as tk

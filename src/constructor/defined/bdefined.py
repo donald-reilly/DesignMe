@@ -1,6 +1,5 @@
 from persistance import BPersistent
-from figman import FigMan
-
+from figman import MasterGroup
 class BDefined:
     def __init__(self):
         """
@@ -11,9 +10,9 @@ class BDefined:
         It holds default tkinter object configuration data, which can be accessed and modified by BConstructed, and ultimately used by BDesigned to construct the tkinter UI.
 
         Components:
-            FigMan       -> Manages configuration group structures.
+            MasterGroup       -> Manages configuration group structures.
         """
-        self.manager = FigMan()
+        self.manager = MasterGroup
         self.persistance = BPersistent()
         self.default_configurations = {
             "window": "src/constructor/defined/definitions/window.json",
@@ -86,30 +85,25 @@ class BDefined:
             MasterGroup:
                 The fully constructed configuration group hierarchy.
         """
-
+        if top_level is None:
+            print(config)
         # Iterate through the configuration dictionary
         for member_id, member_config in config.items():
-
             # If the value is another dictionary, it represents
             # a nested configuration group
             if isinstance(member_config, dict):
-
                 # If the top level group has not been created yet,
                 # initialize it using the first key encountered
                 if not top_level:
                     top_level = self.manager(member_id)
                     current_level = top_level
-
                     # Continue recursion into the nested structure
                     self._deserialize_all(member_config, top_level, current_level)
-
                 else:
                     # Create or retrieve the nested configuration group
                     new_group = current_level[member_id]
-
                     # Continue recursion within this new group
                     self._deserialize_all(member_config, top_level, new_group)
-
             # If the value is not a dictionary, it represents
             # a configuration attribute for the current group
             else:
