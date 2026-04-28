@@ -1,4 +1,4 @@
-from figman import MasterGroup
+from esm1 import MasterGroup
 from persistance import BPersistent
 from serializer.serializers import TkSerializer
 import tkinter as tk
@@ -16,7 +16,7 @@ class BSerialized:
     def __init__(self):
         """Initializes the serializer and creates a FigMan manager instance."""
 
-        self.manager = FigMan() #Initialize the FigMan
+        self.manager = MasterGroup("root") #Initialize the FigMan
         self.persistance = BPersistent()
         self.serializer_registry = {
             tk.Tk: TkSerializer

@@ -19,7 +19,7 @@ class BConstructed():
 
         Components:
             BPersistent  -> Handles loading serialized configuration files.
-            FigMan       -> Manages configuration group structures.
+            ESM-1       -> Manages configuration group structures.
             TkConstructor-> Builds tkinter widgets from the configuration.
         """
 
