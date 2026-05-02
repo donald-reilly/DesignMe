@@ -10,6 +10,7 @@ readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "Donald Reilly", email = "donald.reilly.jr@outlook.com" }]
 dependencies = []
+classifiers = ["Development Status :: 2 - Pre-Alpha"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
