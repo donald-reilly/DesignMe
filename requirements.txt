@@ -1,5 +1,0 @@
--e git+https://github.com/donald-reilly/ESMFigMan.git@f0e83767c1016aed118f54d8e8822690a687e3f9#egg=ESMFigMan
-PyYAML==6.0.3
--e git+https://github.com/donald-reilly/DesignMe.git@1fad233eabf81772b44526a6c2bc2dc1c5505a95#egg=serializer
-
-    
